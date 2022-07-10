@@ -1,0 +1,87 @@
+const express = require("express");
+const app = express();
+const port = 9877;
+const hotelRouter = express.Router(); // using express router
+const cityRouter = express.Router();
+const data = [
+  {
+    color: "red",
+    value: "#f00",
+  },
+  {
+    color: "green",
+    value: "#0f0",
+  },
+  {
+    color: "blue",
+    value: "#00f",
+  },
+  {
+    color: "cyan",
+    value: "#0ff",
+  },
+  {
+    color: "magenta",
+    value: "#f0f",
+  },
+  {
+    color: "yellow",
+    value: "#ff0",
+  },
+  {
+    color: "black",
+    value: "#000",
+  },
+];
+//health check
+app.get("/health", (req, res) => {
+  res.status(200).send("Health is ok");
+});
+
+app.get("/", (req, res) => {
+  res.status(200).send("Node with express");
+});
+// app.get("/hotel", (req, res) => {
+//   res.status(200).send("<h1>Hotel page</h1>");
+// });
+// to send json data through api
+app.get("/color", (req, res) => {
+  res.status(200).send(data);
+});
+
+//Wrong way of handling this so avoid doin this
+// app.get("/city/details", (req, res) => {
+//   res.status(200).send("This is a city detail page");
+// });
+// app.get("/hotel/detail", (req, res) => {
+//   res.status(200).send("this is a hotel detail page");
+// });
+
+//API USING EXPRESS ROUTER
+
+hotelRouter.route("/").get((req, res) => {
+  res.status(200).send("this is a Hotel page");
+});
+hotelRouter.route("/detail").get((req, res) => {
+  res.status(200).send("this is a hotel detail page");
+});
+cityRouter.route("/").get((req, res) => {
+  res.status(200).send("This is a city page");
+});
+cityRouter.route("/details").get((req, res) => {
+  res.status(200).send("This is a city detail page");
+});
+app.use("/city", cityRouter);
+
+app.use("/hotel", hotelRouter);
+
+app.listen(port, (error, data) => {
+  if (error) throw error;
+  console.log("server is running on port 9877");
+});
+
+// const http = require("http");
+
+// const server = http.createServer();
+
+// server.listen(7777);

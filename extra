@@ -1,0 +1,12 @@
+NODEMON continues development mode
+npm i -g nodemon
+
+nodemon <file name>
+
+COMMON REQUEST OF API
+CRED
+
+C=post
+R=get
+U=put
+D=delete
